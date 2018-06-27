@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/openweathermap.css">
+</head>
+
+<body>
+
+	<div id="frame">
+		<div class="flex-container">
+			<div id="myLocation" class="flex-item">
+				<div style="background-color:gray">
+					<h3>
+						<font color="white">Mijn Locatie</font>
+					</h3>
+				</div>
+				<label>Landcode:</label>
+				<label id="landcode"></label>
+				<br>
+				<label>Land:</label>
+				<label id="land"></label>
+				<br>
+				<label>Regio:</label>
+				<label id="regio"></label>
+				<br>
+				<label>Stad:</label>
+				<label id="stad"></label>
+				<br>
+				<label>Postcode:</label>
+				<label id="postcode"></label>
+				<br>
+				<label>Latitude:</label>
+				<label id="latitude"></label>
+				<br>
+				<label>Longitude:</label>
+				<label id="longitude"></label>
+				<br>
+				<label>IP:</label>
+				<label id="ip"></label>
+			</div>
+
+			<div id="weatherInfo" class="flex-item">
+				<div style="background-color:gray">
+					<h3 id="city">
+						<font color="white">Het weer in </font>
+					</h3>
+				</div>
+				<label>Temperatuur:</label>
+				<label id="temperatuur"></label>
+				<br>
+				<label>Luchtvochtigheid:</label>
+				<label id="luchtvochtigheid"></label>
+				<br>
+				<label>Windsnelheid:</label>
+				<label id="windsnelheid"></label>
+				<br>
+				<label>Windrichting:</label>
+				<label id="windrichting"></label>
+				<br>
+				<label>Zonsopgang:</label>
+				<label id="zonsopgang"></label>
+				<br>
+				<label>Zonsondergang:</label>
+				<label id="zonsondergang"></label>
+			</div>
+		</div>
+		<div style="background-color:gray">
+			<h1 id="vakantiebestemmingen">
+				<font color="white">Beschikbare vakantiebestemmingen </font>
+			</h1>
+		</div>
+		<div id="countryList">
+			<table id="table">
+				<tr>
+					<th>Land</th>
+					<th>Hoofdstad</th>
+					<th>Regio</th>
+					<th>Oppervlakte</th>
+					<th>Inwoners</th>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+	<script src="javascript/openweathermap.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+td:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+body{
+	background-color: #e0e0d1;
+	
+}
+
+label {
+    width:180px;
+    clear:left;
+    text-align:right;
+    padding-right:10px;
+ 
+}
+
+/* label#{
+	float:right;
+}
+	
+	
+div#table {
+	text-align:left;
+} */
+
+.flex-container {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .flex-item {
+        width: 50%;
+    }
+}
+
+.flex-item {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
