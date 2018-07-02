@@ -17,7 +17,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	@Override
 	public boolean save(Country country) {
 		boolean isSaved = false;
-		String query = "INSERT INTO country (code, iso3, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold, localname, governmentform, headofstate, latitude,longitude, capital) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO country (code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement statement = null;
 		try (Connection con = pbd.getConnection()) {
 			statement = con.prepareStatement(query);
@@ -25,14 +25,14 @@ public class CountryPostgresDaoImpl implements CountryDao {
 			statement.setString(1, country.getCode());
 			statement.setString(2,country.getIso3());
 			statement.setString(3, country.getName());
-			statement.setString(4, country.getCapital());
-			statement.setString(5, country.getContinent());
-			statement.setString(6, country.getRegion());
-			statement.setDouble(7, country.getSurface());
-			statement.setInt(8, country.getPopulation());
-			statement.setString(9, country.getGovernment());
-			statement.setDouble(10, country.getLatitude());
-			statement.setDouble(11, country.getLongitude());
+			statement.setString(4, country.getContinent());
+			statement.setString(5, country.getRegion());
+			statement.setDouble(6, country.getSurface());
+			statement.setInt(7, country.getPopulation());
+			statement.setString(8, country.getGovernment());
+			statement.setDouble(9, country.getLatitude());
+			statement.setDouble(10, country.getLongitude());
+			statement.setString(11, country.getCapital());
 			
 			statement.executeUpdate();
 			statement.close();
@@ -53,7 +53,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 		try(Connection con = pbd.getConnection()) {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM country");
+			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country");
 			
 			while (rs.next()) {
 				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
@@ -75,7 +75,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 	try(Connection con = pbd.getConnection()) {	
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM COUNTRY WHERE code = " + code);
+		ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM COUNTRY WHERE code = " + code);
 		
 		while (rs.next()) {
 			country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
@@ -98,7 +98,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 		try(Connection con = pbd.getConnection()) {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM country order by population DESC LIMIT 10");
+			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country order by population DESC LIMIT 10");
 			
 			while (rs.next()) {
 				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
@@ -121,7 +121,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 		try(Connection con = pbd.getConnection()) {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM country order by surface DESC LIMIT 10");
+			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country order by surface DESC LIMIT 10");
 			
 			while (rs.next()) {
 				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
@@ -145,17 +145,18 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 		try(Connection con = pbd.getConnection()){
 		PreparedStatement pstmt = con.prepareStatement(s);
+		
 		pstmt.setString(1, country.getCode());
 		pstmt.setString(2,country.getIso3());
 		pstmt.setString(3, country.getName());
-		pstmt.setString(4, country.getCapital());
-		pstmt.setString(5, country.getContinent());
-		pstmt.setString(6, country.getRegion());
-		pstmt.setDouble(7, country.getSurface());
-		pstmt.setInt(8, country.getPopulation());
-		pstmt.setString(9, country.getGovernment());
-		pstmt.setDouble(10, country.getLatitude());
-		pstmt.setDouble(11, country.getLongitude());
+		pstmt.setString(4, country.getContinent());
+		pstmt.setString(5, country.getRegion());
+		pstmt.setDouble(6, country.getSurface());
+		pstmt.setInt(7, country.getPopulation());
+		pstmt.setString(8, country.getGovernment());
+		pstmt.setDouble(9, country.getLatitude());
+		pstmt.setDouble(10, country.getLongitude());
+		pstmt.setString(11, country.getCapital());
 		
 		
 		pstmt.executeUpdate();
