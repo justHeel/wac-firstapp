@@ -117,7 +117,9 @@ function loadCountries() {
 			for (const country of myJson) {
 				var td = "<td>";
 				var td2 = "</td>";
-				var txt = td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2;
+				var button = "<button type = " + "'button' onclick = 'alert(het werkt)'> Wijzigen</button>" ;
+				var button2 = "<button type = " + "'button' onclick = 'alert(het werkt)'> Verwijderen</button>"
+				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + button + button2;
 
 				var newRow = document.createElement("tr");
 				newRow.innerHTML = txt;

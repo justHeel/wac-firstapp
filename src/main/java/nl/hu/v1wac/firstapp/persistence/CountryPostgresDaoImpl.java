@@ -56,7 +56,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country");
 			
 			while (rs.next()) {
-				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
+				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACEAREA"),rs.getInt("POPULATION"), rs.getString("GOVERNMENTFORM"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
 				countriesLijst.add(country);
 				
 			}
@@ -78,7 +78,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM COUNTRY WHERE code = " + code);
 		
 		while (rs.next()) {
-			country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
+			country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACEAREA"),rs.getInt("POPULATION"), rs.getString("GOVERNMENTFORM"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
 			
 		}
 		
@@ -101,7 +101,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country order by population DESC LIMIT 10");
 			
 			while (rs.next()) {
-				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
+				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACEAREA"),rs.getInt("POPULATION"), rs.getString("GOVERNMENTFORM"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
 				countriesLijst.add(country);
 				
 			}
@@ -124,7 +124,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 			ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM country order by surface DESC LIMIT 10");
 			
 			while (rs.next()) {
-				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACE"),rs.getInt("POPULATION"), rs.getString("GOVERNMENT"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
+				country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACEAREA"),rs.getInt("POPULATION"), rs.getString("GOVERNMENTFORM"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
 				countriesLijst.add(country);
 				
 			}
@@ -141,7 +141,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	public boolean update(Country country) {
 		boolean isUpdated = false;
 		
-		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, capital = ?, continent = ? ,region = ? , surface = ?, population = ? , goverment = ? , latitude = ? , longitude = ? WHERE code = ?";
+		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, continent = ? ,region = ? , surfacesarea = ?, population = ? , govermentform = ? , latitude = ? , longitude = ? , capital = ? WHERE code = ?";
 		
 		try(Connection con = pbd.getConnection()){
 		PreparedStatement pstmt = con.prepareStatement(s);
