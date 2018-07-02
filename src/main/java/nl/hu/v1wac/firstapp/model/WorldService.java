@@ -21,17 +21,17 @@ public class WorldService {
 	public List<Country> get10LargestPopulations() {
 		
 		
-		return null;
+		return cpdi.find10LargestPopulations();
 	}
 
 	public List<Country> get10LargestSurfaces() {
 		
 		
-		return null;
+		return cpdi.find10LargestSurfaces();
 	}
 	
 	public Country getCountryByCode(String code) {
 		
-		return null;
+		return cpdi.findByCode(code);
 	}
 }
