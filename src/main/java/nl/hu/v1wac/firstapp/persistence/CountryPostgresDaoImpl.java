@@ -75,7 +75,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		
 	try(Connection con = pbd.getConnection()) {	
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM COUNTRY WHERE code = " + code);
+		ResultSet rs = stmt.executeQuery("SELECT code, iso3, name, continent, region, surfacearea,  population,  governmentform,  latitude,longitude, capital FROM COUNTRY WHERE code = '" + code + "'");
 		
 		while (rs.next()) {
 			country = new Country(rs.getString("CODE"), rs.getString("ISO3"), rs.getString("NAME"),rs.getString("CAPITAL"),rs.getString("CONTINENT"),rs.getString("REGION"),rs.getDouble("SURFACEAREA"),rs.getInt("POPULATION"), rs.getString("GOVERNMENTFORM"),rs.getDouble("LATITUDE"),rs.getDouble("LONGITUDE"));
@@ -87,8 +87,11 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	}		
 	 catch (Exception e) {
 			System.out.println(e);
+			System.out.println(country);
 		} 
+		System.out.println(country);
 		return country;
+		
 	}
 
 	@Override
@@ -141,7 +144,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	public boolean update(Country country) {
 		boolean isUpdated = false;
 		
-		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, continent = ? ,region = ? , surfacesarea = ?, population = ? , govermentform = ? , latitude = ? , longitude = ? , capital = ? WHERE code = ?";
+		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, continent = ? ,region = ? , surfacesarea = ?, population = ? , govermentform = ? , latitude = ? , longitude = ? , capital = ? WHERE code = '" + country.getCode() + "'";
 		
 		try(Connection con = pbd.getConnection()){
 		PreparedStatement pstmt = con.prepareStatement(s);
@@ -177,7 +180,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	@Override
 	public boolean delete(Country country) {
 	boolean isDeleted = false;
-		String s = "DELETE FROM country WHERE code = ?";
+		String s = "DELETE FROM country WHERE code =  '" + country.getCode() + "'";
 		try(Connection con = pbd.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(s);
 			stmt.setString(1, country.getCode());

@@ -117,9 +117,9 @@ function loadCountries() {
 			for (const country of myJson) {
 				var td = "<td>";
 				var td2 = "</td>";
-				var button = "<button type = " + "'button' onclick = 'alert(het werkt)'> Wijzigen</button>" ;
-				var button2 = "<button type = " + "'button' onclick = 'alert(het werkt)'> Verwijderen</button>"
-				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + button + button2;
+				var buttonWijzigen = "<input type = " + "'button' id='edit' onclick = 'alert(het werkt)'> Wijzigen</button>" ;
+				var buttonVerwijderen = "<input type = 'button' id='delete'> Verwijderen</button>"
+				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen + buttonVerwijderen;
 
 				var newRow = document.createElement("tr");
 				newRow.innerHTML = txt;
@@ -132,6 +132,21 @@ function loadCountries() {
 				});
 
 				document.getElementById("table").appendChild(newRow);
+				
+				document.querySelector("#delete").addEventListener("click", function () {
+					  var countryCode = country.code
+
+					  fetch("http://localhost:8081/firstapp/restservices/countries/"+countryCode, { method: 'DELETE' })
+					    .then(function (response) {
+					      if (response.ok) // response-status = 200 OK
+					        console.log("Customer deleted!");
+					      else if (response.status == 404)
+					        console.log("Customer not found!");
+					      else console.log("Cannot delete customer!");
+					    })
+					});
+				
+				
 			}
 
 

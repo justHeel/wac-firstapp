@@ -34,4 +34,11 @@ public class WorldService {
 		
 		return cpdi.findByCode(code);
 	}
+
+
+	public boolean deleteCountry(Country country) {
+		
+		return cpdi.delete(country);
+	}
 }
+

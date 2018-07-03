@@ -1,13 +1,16 @@
 package nl.hu.v1wac.firstapp.webservices;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import nl.hu.v1wac.firstapp.model.Country;
 import nl.hu.v1wac.firstapp.model.ServiceProvider;
@@ -65,7 +68,22 @@ public class WorldResource {
 		
 		return job.build().toString();
 		
+
+		
 	}
+	
+	 @RolesAllowed("user")
+	 @DELETE
+	 @Path("delete/{code}")
+	 @Produces("appslication/json")
+	  public Response deleteCountry(@PathParam("code") String code) {
+		 WorldService service = ServiceProvider.getWorldService();
+	    if (!service.deleteCountry(code)) {
+	      return Response.status(404).build();
+	    }
+
+	    return Response.ok().build();
+	  }
 	
 	@GET
 	@Path("/largestsurfaces")
@@ -108,7 +126,6 @@ public class WorldResource {
 			JsonArray array = jab.build();
 			return array.toString();
 			}
-		
 		
 		
 }
