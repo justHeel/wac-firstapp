@@ -113,7 +113,7 @@ function loadCountries() {
 		})
 
 		.then(function (myJson) {
-
+			// esaki ta e wijzig Yes
 			for (const country of myJson) {
 				var td = "<td id=t" + country.code + ">";
 				var td2 = "</td>";
@@ -122,12 +122,24 @@ function loadCountries() {
 				var closeForm = "</form>";
 				var buttonWijzigen = "<input type = 'button' id=w" + country.code  + " value='Wijzigen'></button> " ;
 				var buttonVerwijderen = " <input type = 'button' id=v" + country.code  + " value='Verwijderen'></button>"
-				var txt =  form + td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen  + buttonVerwijderen + input + closeForm;
+				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen  + buttonVerwijderen + input;
 				
 				var newRow = document.createElement("tr");
 				var tdID = "td" + country.code;
 				newRow.setAttribute('id',tdID);
 				newRow.innerHTML = txt;
+
+				var wijzigForm = document.createElement("form");
+				wijzigForm.id = "f"+ country.code;
+				newRow.appendChild(wijzigForm);
+
+				var wijzigBtn =  document.createElement("input");
+				wijzigBtn.type = "button";
+				wijzigBtn.id = "w" + country.code;
+				wijzigBtn.value = "Wijzigen";
+
+				wijzigForm.appendChild(txt);
+				console.log(newRow.innerHTML);
 
 				newRow.addEventListener("click", function () {
 					document.querySelector("#city").innerHTML = "Het weer in " + country.capital;
@@ -183,11 +195,13 @@ function loadCountries() {
 					        
 					        	
 						  var formData = new FormData(document.querySelector("#f"+country.code));
+						  console.log(formData);
+						  console.log(formData.values);
 						  var encData = new URLSearchParams(formData.entries());
 						  
 						  fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData })
 						    .then(response => response.json())
-						    .then(function(myJson) { 
+						    .then(function(myJson) {
 						    	console.log(myJson); 
 
 						    })
@@ -213,8 +227,8 @@ function loadCountries() {
 				
 				
 			})
+}
 
-
-		}
+		
 
 initPage();

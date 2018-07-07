@@ -25,6 +25,8 @@ import nl.hu.v1wac.firstapp.model.WorldService;
 @Path("/countries")
 public class WorldResource {
 	
+
+	
 	@GET
 	@Produces("application/json")
 	public String getCountries() {
@@ -78,7 +80,7 @@ public class WorldResource {
 		
 	}
 	
-//	 @RolesAllowed("user")
+	 @RolesAllowed("user")
 	 @DELETE
 	 @Path("{code}")
 	 @Produces("application/json")
@@ -90,7 +92,8 @@ public class WorldResource {
 
 	    return Response.ok().build();
 	  }
-	 
+	
+//	 @RolesAllowed("user")
 	 @PUT
 	 @Path("{code}")
 	 @Produces("application/json")  
@@ -108,7 +111,7 @@ public class WorldResource {
 	     return Response.ok(country).build();
 	   }
 
-	 
+	 @RolesAllowed("user")
 	 @POST
 	 @Produces("application/json")
 	 public Response createCountry(@FormParam("code") String code,@FormParam("iso3") String iso,@FormParam("name") String name,@FormParam("capital") String capi,

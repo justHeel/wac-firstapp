@@ -15,7 +15,7 @@ public class UserPostgresDaoImpl implements UserDao{
 		
 		try(Connection con = pbd.getConnection()) {	
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT role FROM user WHERE name = '" + name  + "' AND pass = '" + pass + "'");
+			ResultSet rs = stmt.executeQuery("SELECT role FROM useraccount WHERE username = '" + name  + "' AND password = '" + pass + "'");
 			
 			while (rs.next()) {
 				role = rs.getString("role");
@@ -27,6 +27,7 @@ public class UserPostgresDaoImpl implements UserDao{
 		 catch (Exception e) {
 				System.out.println(e);
 				role = null;
+				
 			} 
 			return role;
 	}

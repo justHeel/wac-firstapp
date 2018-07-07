@@ -32,11 +32,11 @@ public class AuthenticationResource {
 	      // Authenticate the user against the database
 	      UserDao dao = new UserPostgresDaoImpl();
 	      String role = dao.findRoleForUser(username, password);
-	      
+	
 	      if (role == null) { throw new IllegalArgumentException("No user found!");  } 
 	      
 	      String token = createToken(username, role);
-
+	 
 	      SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
 	      return Response.ok(JWT).build();
 
