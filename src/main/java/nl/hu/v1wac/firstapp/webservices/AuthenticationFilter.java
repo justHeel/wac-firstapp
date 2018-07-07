@@ -3,6 +3,7 @@ package nl.hu.v1wac.firstapp.webservices;
 import java.io.IOException;
 
 import javax.annotation.Priority;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
@@ -14,7 +15,7 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
 @Provider
-//@Priority(Priorities.AUTHENTICATION)
+@Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
 	@Override
   public void filter(ContainerRequestContext requestCtx) throws IOException {

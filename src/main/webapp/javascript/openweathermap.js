@@ -46,18 +46,18 @@ function initPage() {
 }
 
 function showWeather(latitude, longitude, city) {
-	console.log(city);
+	
 	if (localStorage.getItem(city) != undefined) {
 		var weather = JSON.parse(localStorage.getItem(city));
 		var time = weather.time;
-		console.log(time);
+		
 		if (time != null) {
 			var date = new Date(time);
-			console.log(date);
+		
 			if (date.setMinutes(date.getMinutes() + 10) >= new Date()) {
 				var jsonFromCity = localStorage.getItem(city);
 				jsonFromCity = JSON.parse(jsonFromCity);
-				console.log(jsonFromCity.main);
+				
 				if (jsonFromCity != null) {
 					document.querySelector("#temperatuur").innerHTML = jsonFromCity.main.temp;
 					document.querySelector("#luchtvochtigheid").innerHTML = jsonFromCity.main.humidity;
@@ -71,7 +71,7 @@ function showWeather(latitude, longitude, city) {
 					document.querySelector("#zonsopgang").innerHTML = datum.getHours() + ":" + datum.getMinutes() + ":" + datum.getSeconds();
 					document.querySelector("#zonsondergang").innerHTML = datum2.getHours() + ":" + datum2.getMinutes() + ":" + datum2.getSeconds();
 				}
-				console.log("diz is weird");
+				
 
 			}
 		}
@@ -98,7 +98,7 @@ function showWeather(latitude, longitude, city) {
 				document.querySelector("#zonsondergang").innerHTML = datum2.getHours() + ":" + datum2.getMinutes() + ":" + datum2.getSeconds();
 
 				myJson.time = new Date();
-				console.log("else show");
+				
 				localStorage.setItem(city, JSON.stringify(myJson));
 
 
@@ -115,13 +115,18 @@ function loadCountries() {
 		.then(function (myJson) {
 
 			for (const country of myJson) {
-				var td = "<td>";
+				var td = "<td id=t" + country.code + ">";
 				var td2 = "</td>";
-				var buttonWijzigen = "<input type = " + "'button' id='edit' onclick = 'alert(het werkt)'> Wijzigen</button>" ;
-				var buttonVerwijderen = "<input type = 'button' id='delete'> Verwijderen</button>"
-				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen + buttonVerwijderen;
-
+				var form = "<form id=f"+ country.code + ">";
+				var input = "<input type='hidden' name='name' value='your value'/>";
+				var closeForm = "</form>";
+				var buttonWijzigen = "<input type = 'button' id=w" + country.code  + " value='Wijzigen'></button> " ;
+				var buttonVerwijderen = " <input type = 'button' id=v" + country.code  + " value='Verwijderen'></button>"
+				var txt =  form + td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen  + buttonVerwijderen + input + closeForm;
+				
 				var newRow = document.createElement("tr");
+				var tdID = "td" + country.code;
+				newRow.setAttribute('id',tdID);
 				newRow.innerHTML = txt;
 
 				newRow.addEventListener("click", function () {
@@ -133,25 +138,70 @@ function loadCountries() {
 
 				document.getElementById("table").appendChild(newRow);
 				
-				document.querySelector("#delete").addEventListener("click", function () {
+				document.querySelector("#v" + country.code).addEventListener("click", function () {
 					  var countryCode = country.code
 
 					  fetch("http://localhost:8081/firstapp/restservices/countries/"+countryCode, { method: 'DELETE' })
 					    .then(function (response) {
 					      if (response.ok) // response-status = 200 OK
-					        console.log("Customer deleted!");
+					        console.log("Land verwijdert!");
 					      else if (response.status == 404)
-					        console.log("Customer not found!");
-					      else console.log("Cannot delete customer!");
+					        console.log("Land niet gevonden!");
+					      else console.log("Kan de land niet verwijderen!");
 					    })
 					});
 				
+				document.querySelector("#w" + country.code).addEventListener("click", function () {
+		
+					  var countryCode = country.code;
 				
+					  document.getElementById("td" + country.code).contentEditable = true;
+					  x = document.getElementById("w" + country.code);
+					
+					   
+					    if (x.style.display === "none") {
+					        x.style.display = "block";
+					        
+					    } else {
+					        x.style.display = "none";
+					        console.log("wijzigen button moet nu weg zijn");
+					    }
+					 
+					  
+					    });
+					    document.querySelector("#td"+country.code).addEventListener('keypress', function (e) {
+					        var key = e.which || e.keyCode;					        
+					        if (key === 13) {
+					        	document.getElementById("td" + country.code).contentEditable = false;
+					        	if (x.style.display === "none") {
+							        x.style.display = "block";
+							        
+							    } else {
+							        x.style.display = "none";
+							        console.log("hij moet nu weer wijzigen zijn");
+							    }
+					        
+					        	
+						  var formData = new FormData(document.querySelector("#f"+country.code));
+						  var encData = new URLSearchParams(formData.entries());
+						  
+						  fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData })
+						    .then(response => response.json())
+						    .then(function(myJson) { 
+						    	console.log(myJson); 
+
+						    })
+					    }
+					    })
+					    	document.querySelector("#makenButton").addEventListener("click", function () {
+					    		
+					    	}
 			}
+				
+				
+			})
 
 
-		});
-
-}
+		}
 
 initPage();

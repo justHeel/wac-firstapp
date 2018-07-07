@@ -12,5 +12,5 @@ public interface CountryDao {
 	public List<Country> find10LargestPopulations();
 	public List<Country> find10LargestSurfaces();
 	public boolean update(Country country);
-	public boolean delete(Country country);
+	public boolean delete(String code);
 }

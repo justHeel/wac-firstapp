@@ -36,9 +36,13 @@ public class WorldService {
 	}
 
 
-	public boolean deleteCountry(Country country) {
+	public boolean deleteCountry(String code) {
 		
-		return cpdi.delete(country);
+		return cpdi.delete(code);
+	}
+	
+	public boolean updateCountry(Country country) {
+		return cpdi.update(country);
 	}
 }
 

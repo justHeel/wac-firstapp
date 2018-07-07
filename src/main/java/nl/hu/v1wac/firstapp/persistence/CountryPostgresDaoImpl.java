@@ -144,7 +144,7 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	public boolean update(Country country) {
 		boolean isUpdated = false;
 		
-		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, continent = ? ,region = ? , surfacesarea = ?, population = ? , govermentform = ? , latitude = ? , longitude = ? , capital = ? WHERE code = '" + country.getCode() + "'";
+		String s = "UPDATE COUNTRY SET code = ? , iso3 = ?, name = ?, continent = ? ,region = ? , surfacearea = ?, population = ? , governmentform = ? , latitude = ? , longitude = ? , capital = ? WHERE code = ?";
 		
 		try(Connection con = pbd.getConnection()){
 		PreparedStatement pstmt = con.prepareStatement(s);
@@ -160,6 +160,8 @@ public class CountryPostgresDaoImpl implements CountryDao {
 		pstmt.setDouble(9, country.getLatitude());
 		pstmt.setDouble(10, country.getLongitude());
 		pstmt.setString(11, country.getCapital());
+		pstmt.setString(12, country.getCode());
+		
 		
 		
 		pstmt.executeUpdate();
@@ -178,12 +180,12 @@ public class CountryPostgresDaoImpl implements CountryDao {
 	
 
 	@Override
-	public boolean delete(Country country) {
+	public boolean delete(String code) {
 	boolean isDeleted = false;
-		String s = "DELETE FROM country WHERE code =  '" + country.getCode() + "'";
+		String s = "DELETE FROM country WHERE code = ?";
 		try(Connection con = pbd.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(s);
-			stmt.setString(1, country.getCode());
+			stmt.setString(1, code);
 		
 			stmt.executeUpdate();
 			stmt.close();

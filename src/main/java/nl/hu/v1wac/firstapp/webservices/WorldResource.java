@@ -1,5 +1,8 @@
 package nl.hu.v1wac.firstapp.webservices;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -7,6 +10,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -72,10 +76,10 @@ public class WorldResource {
 		
 	}
 	
-	 @RolesAllowed("user")
+//	 @RolesAllowed("user")
 	 @DELETE
-	 @Path("delete/{code}")
-	 @Produces("appslication/json")
+	 @Path("{code}")
+	 @Produces("application/json")
 	  public Response deleteCountry(@PathParam("code") String code) {
 		 WorldService service = ServiceProvider.getWorldService();
 	    if (!service.deleteCountry(code)) {
@@ -84,6 +88,24 @@ public class WorldResource {
 
 	    return Response.ok().build();
 	  }
+	 
+	 @PUT
+	 @Path("{code}")
+	 @Produces("application/json")  
+	   public Response updateCountry(@PathParam("code") String code){
+		WorldService service = ServiceProvider.getWorldService();
+		 Country country = service.getCountryByCode(code);
+	     service.updateCountry(country);
+
+	     if (country == null) {
+	       Map<String, String> messages = new HashMap<String, String>();
+	       messages.put("error", "Customer does not exist!");
+	       return Response.status(409).entity(messages).build();
+	     }
+
+	     return Response.ok(country).build();
+	   }
+
 	
 	@GET
 	@Path("/largestsurfaces")
