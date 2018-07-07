@@ -71,6 +71,23 @@
 				<font color="white">Beschikbare vakantiebestemmingen </font>
 				<input type="button" id="makenButton" value="Land toevoegen"/>
 			</h1>
+			
+			<form id="POSTcountryForm" style= "display:none;">
+  			<div><label>Code: </label><input type="text" name="code" /></div>
+  			<div><label>Iso3: </label><input type="text" name="iso3" /></div>
+  			<div><label>Name: </label><input type="text" name="name" ></div>
+  			<div><label>Capital: </label><input type="text" name="capital" /></div>
+  			<div><label>Continent: </label><input type="text" name="continent" /></div>
+  			<div><label>Region: </label><input type="text" name="region" /></div>
+  			<div><label>Surface: </label><input type="number" name="surface" /></div>
+  			<div><label>Population: </label><input type="number" name="population" /></div>
+  			<div><label>Government: </label><input type="text" name="government" /></div>
+  			<div><label>Latitude: </label><input type="number" name="latitude" /></div>
+  			<div><label>Longitude: </label><input type="number" name="longitude"/></div>
+  			<div><input type="button" id="post" value="Opslaan!" /></div>
+			</form>
+			
+			
 		</div>
 		<div id="countryList">
 			<table id="table">

@@ -193,10 +193,23 @@ function loadCountries() {
 						    })
 					    }
 					    })
-					    	document.querySelector("#makenButton").addEventListener("click", function () {
-					    		
-					    	}
+					    
 			}
+			
+			document.querySelector("#makenButton").addEventListener("click", function () {
+	    		 document.getElementById('makenButton').style.display = 'none';
+	    		 document.getElementById('POSTcountryForm').style.display='block';
+	    		 
+	    		 document.querySelector("#post").addEventListener("click",function(){
+	    		  var formData = new FormData(document.querySelector("#POSTcountryForm"));
+	    		  var encData = new URLSearchParams(formData.entries());
+
+	    		  fetch("http://localhost:8081/firstapp/restservices/countries/", { method: 'POST', body: encData })
+	    		    .then(response => response.json())
+	    		    .then(function(myJson) { console.log(myJson); });
+	    		 })
+			        
+	    	})
 				
 				
 			})

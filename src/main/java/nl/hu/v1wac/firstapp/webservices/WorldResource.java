@@ -9,7 +9,9 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -105,6 +107,22 @@ public class WorldResource {
 
 	     return Response.ok(country).build();
 	   }
+
+	 
+	 @POST
+	 @Produces("application/json")
+	 public Response createCountry(@FormParam("code") String code,@FormParam("iso3") String iso,@FormParam("name") String name,@FormParam("capital") String capi,
+				@FormParam("continent") String conti,@FormParam("region") String reg,@FormParam("surface") double sur,@FormParam("population") int pop,
+				@FormParam("government") String gov,@FormParam("latitude") double lat,@FormParam("longitude") double lon){
+	 
+	 
+	 WorldService service = ServiceProvider.getWorldService();
+	 	
+	 	Country newCountry = new Country(code,iso,name,capi,conti,reg,sur,pop,gov,lat,lon);
+	   service.saveCountry(newCountry); 
+	    return Response.ok(newCountry).build();
+}
+	 
 
 	
 	@GET

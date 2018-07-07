@@ -44,5 +44,9 @@ public class WorldService {
 	public boolean updateCountry(Country country) {
 		return cpdi.update(country);
 	}
+	
+	public boolean saveCountry(Country country) {
+		return cpdi.save(country);
+	}
 }
 
