@@ -191,76 +191,24 @@ function loadCountries() {
 				
 				document.querySelector("#w" + country.code).addEventListener("click", function () {
 		
-					  var countryCode = country.code;
 				
 					  document.getElementById("td" + country.code).contentEditable = true;
-					  x = document.getElementById("w" + country.code);
-					
-					   
-					    if (x.style.display === "none") {
-					        x.style.display = "block";
-					        
-					    } else {
-					        x.style.display = "none";
-					        console.log("wijzigen button moet nu weg zijn");
-					    }
-					 
 					  
-					    });
-					    document.querySelector("#td"+country.code).addEventListener('keypress', function (e) {
-					        var key = e.which || e.keyCode;					        
-					        if (key === 13) {
-//					        	form.submit();
+					
 					        	 var formData = new FormData(document.querySelector("#f"+country.code));
 					        	 var encData = new URLSearchParams(formData.entries());
-					        	 for(var entries of formData.entries()){
-					        		 console.log(entries[0] + " " + entries[1] );
-					        		 
-					        	 }
-//					        	 window.alert(encData);
-					        	 
 					        	 fetch("restservices/countries/"+country.code, { method: 'PUT', body: encData 
 					        		 })
 								    .then(response => response.json())
-								    .catch(error => window.alert(error))
-								    	
+								     
 								    .then(function(myJson) {
-//								    	window.alert(myJson); 
-
-								    
+								    	document.getElementById("td" + country.code).contentEditable = false;	
+	    
 					        })
-								    document.getElementById("td" + country.code).contentEditable = false;
-							    }
-					        	if (x.style.display === "none") {
-							        x.style.display = "block";
-							        
-							    } else {
-							        x.style.display = "none";
-							        console.log("hij moet nu weer wijzigen zijn");
-							    }
-					        
-					        	
-//						  var formData = new FormData(document.querySelector("#f"+country.code));
-//						  formData.append('code', document.querySelector("#t"+country.code).innerHTML);
-//			    		  formData.append('name', document.querySelector("#t"+country.code).innerHTML);
-//			    		  formData.append('capital',country.capital);
-//			    		  formData.append('regio',country.region);
-//			    		  formData.append('surface',country.surface);
-//			    		  formData.append('population',country.population);
-//						  console.log(formData);
-//						  console.log(formData.values);
-//						  var encData = new URLSearchParams(formData.entries());
-//						  
-//						  fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData })
-//						    .then(response => response.json())
-//						    .then(function(myJson) {
-//						    	console.log(myJson); 
-//
-//						    })
-//					    }
-//					    })
-					    		    
-			})
+								 
+							    
+			 });
+
 			
 			document.querySelector("#makenButton").addEventListener("click", function () {
 	    		 document.getElementById('makenButton').style.display = 'none';

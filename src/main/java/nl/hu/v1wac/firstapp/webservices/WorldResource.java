@@ -93,7 +93,7 @@ public class WorldResource {
 	    return Response.ok().build();
 	  }
 	
-//	 @RolesAllowed("user")
+	 @RolesAllowed("user")
 	 @PUT
 	 @Path("{code}")
 	 @Produces("application/json")  
