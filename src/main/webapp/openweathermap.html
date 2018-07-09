@@ -2,16 +2,16 @@
 <html>
 
 <head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/openweathermap.css">
 </head>
 
 <body>
 
 	<div id="frame">
-		<div class="flex-container">
-			<div id="myLocation" class="flex-item">
-				<div style="background-color:gray">
+		
+			<div id="myLocation" class="informatie">
+				<div style="background-color:gray" class="column">
 					<h3>
 						<font color="white">Mijn Locatie</font>
 					</h3>
@@ -41,8 +41,8 @@
 				<label id="ip"></label>
 			</div>
 
-			<div id="weatherInfo" class="flex-item">
-				<div style="background-color:gray">
+			<div id="weatherInfo" class="informatie">
+				<div style="background-color:gray" class="column">
 					<h3 id="city">
 						<font color="white">Het weer in </font>
 					</h3>
@@ -65,7 +65,7 @@
 				<label>Zonsondergang:</label>
 				<label id="zonsondergang"></label>
 			</div>
-		</div>
+		
 		<div style="background-color:gray">
 			<h1 id="vakantiebestemmingen">
 				<font color="white">Beschikbare vakantiebestemmingen </font>
@@ -99,7 +99,6 @@
 					<th>Inwoners</th>
 				</tr>
 			</table>
-
 		</div>
 	</div>
 	<script src="javascript/openweathermap.js"></script>

@@ -104,7 +104,7 @@ public class WorldResource {
 
 	     if (country == null) {
 	       Map<String, String> messages = new HashMap<String, String>();
-	       messages.put("error", "Customer does not exist!");
+	       messages.put("error", "Country does not exist!");
 	       return Response.status(409).entity(messages).build();
 	     }
 

@@ -20,15 +20,3 @@ var encData = new URLSearchParams(formData.entries());
 
  
  
- var fetchoptions = { 
-		  method: 'DELETE’,
-	      headers : { 
-		    'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT") }
-		}
-		fetch("restservices/countries/CN", fetchoptions)
-		  .then(function(response) {
-		    if (response.ok) {
-		      console.log("Country deleted!");
-		    } else console.log("Could not delete country!");
-		  })
-		  .catch(error => console.log(error));

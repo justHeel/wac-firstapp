@@ -70,4 +70,9 @@ public class Country {
 	public double getLongitude() {
 		return longitude;
 	}
+	
+	public String toString() {
+		return name;
+	}
+	
 }

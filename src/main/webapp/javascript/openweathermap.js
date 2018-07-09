@@ -113,33 +113,57 @@ function loadCountries() {
 		})
 
 		.then(function (myJson) {
-			// esaki ta e wijzig Yes
+			
 			for (const country of myJson) {
-				var td = "<td id=t" + country.code + ">";
-				var td2 = "</td>";
-				var form = "<form id=f"+ country.code + ">";
-				var input = "<input type='hidden' name='name' value='your value'/>";
-				var closeForm = "</form>";
-				var buttonWijzigen = "<input type = 'button' id=w" + country.code  + " value='Wijzigen'></button> " ;
-				var buttonVerwijderen = " <input type = 'button' id=v" + country.code  + " value='Verwijderen'></button>"
-				var txt =  td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2 + buttonWijzigen  + buttonVerwijderen + input;
+				 td = "<td id=t" + country.code + ">";
+				 td2 = "</td>";
+//				 form = "<form id=f"+ country.code + ">";
+//				 input = "<input type='hidden' name='name' value='your value'/>";
+//				 closeForm = "</form>";
+				 buttonWijzigen = "<input type = 'button' id=w" + country.code  + " value='Wijzigen'></button> " ;
+				 buttonVerwijderen = " <input type = 'button' id=v" + country.code  + " value='Verwijderen'></button>"
+				txt =  country.code + td + country.name + td2 + td + country.capital + td2 + td + country.region + td2 + td + country.surface + td2 + td + country.population + td2  + buttonWijzigen  + buttonVerwijderen;
 				
 				var newRow = document.createElement("tr");
 				var tdID = "td" + country.code;
 				newRow.setAttribute('id',tdID);
 				newRow.innerHTML = txt;
+				
+				form = document.createElement("form");
+				form.id = "f"+country.code;
+				
+				
+				inputName = document.createElement("input");
+				inputName.type = "text";
+				inputName.name = "name";
+				inputName.placeholder = "name";
+				
+				inputCapital = document.createElement("input");
+				inputCapital.type = "text";
+				inputCapital.name = "capital";
+				
+				inputRegion = document.createElement("input");
+				inputRegion.type = "text";
+				inputRegion.name = "region";
+			
+				inputSurface = document.createElement("input");
+				inputSurface.type = "text";
+				inputSurface.name = "surface";
+				
+				inputPopulation = document.createElement("input");
+				inputPopulation.type = "text";
+				inputPopulation.name = "population";
+				
+				form.appendChild(inputName);
+				form.appendChild(inputCapital);
+				form.appendChild(inputRegion);
+				form.appendChild(inputSurface);
+				form.appendChild(inputPopulation);
+				newRow.appendChild(form);
+				
+				
 
-				var wijzigForm = document.createElement("form");
-				wijzigForm.id = "f"+ country.code;
-				newRow.appendChild(wijzigForm);
-
-				var wijzigBtn =  document.createElement("input");
-				wijzigBtn.type = "button";
-				wijzigBtn.id = "w" + country.code;
-				wijzigBtn.value = "Wijzigen";
-
-				wijzigForm.appendChild(txt);
-				console.log(newRow.innerHTML);
+				
 
 				newRow.addEventListener("click", function () {
 					document.querySelector("#city").innerHTML = "Het weer in " + country.capital;
@@ -151,17 +175,19 @@ function loadCountries() {
 				document.getElementById("table").appendChild(newRow);
 				
 				document.querySelector("#v" + country.code).addEventListener("click", function () {
-					  var countryCode = country.code
-
-					  fetch("http://localhost:8081/firstapp/restservices/countries/"+countryCode, { method: 'DELETE' })
-					    .then(function (response) {
-					      if (response.ok) // response-status = 200 OK
-					        console.log("Land verwijdert!");
-					      else if (response.status == 404)
-					        console.log("Land niet gevonden!");
-					      else console.log("Kan de land niet verwijderen!");
-					    })
-					});
+					 var fetchoptions = { 
+			    			  method: 'DELETE',
+			    		      headers : { 
+			    			    'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT") }
+			    			}
+			    			fetch("restservices/countries/"+country.code, fetchoptions)
+			    			  .then(function(response) {
+			    			    if (response.ok) {
+			    			      console.log("Country deleted!");
+			    			    } else console.log("Could not delete country!");
+			    			  })
+			    			  .catch(error => console.log(error));
+				})
 				
 				document.querySelector("#w" + country.code).addEventListener("click", function () {
 		
@@ -184,7 +210,27 @@ function loadCountries() {
 					    document.querySelector("#td"+country.code).addEventListener('keypress', function (e) {
 					        var key = e.which || e.keyCode;					        
 					        if (key === 13) {
-					        	document.getElementById("td" + country.code).contentEditable = false;
+					        	form.submit();
+					        	 var formData = new FormData(document.querySelector("#f"+country.code));
+					        	 var encData = new URLSearchParams(formData.entries());
+					        	 for(var entries of formData.entries()){
+					        		 console.log(entries[0] + " " + entries[1] );
+					        		 
+					        	 }
+//					        	 window.alert(encData);
+					        	 
+					        	 fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData 
+					        		 })
+								    .then(response => response.json())
+								    .catch(error => window.alert(error))
+								    	
+								    .then(function(myJson) {
+//								    	window.alert(myJson); 
+
+								    
+					        })
+								    document.getElementById("td" + country.code).contentEditable = false;
+							    }
 					        	if (x.style.display === "none") {
 							        x.style.display = "block";
 							        
@@ -194,21 +240,27 @@ function loadCountries() {
 							    }
 					        
 					        	
-						  var formData = new FormData(document.querySelector("#f"+country.code));
-						  console.log(formData);
-						  console.log(formData.values);
-						  var encData = new URLSearchParams(formData.entries());
-						  
-						  fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData })
-						    .then(response => response.json())
-						    .then(function(myJson) {
-						    	console.log(myJson); 
-
-						    })
-					    }
-					    })
-					    
-			}
+//						  var formData = new FormData(document.querySelector("#f"+country.code));
+//						  formData.append('code', document.querySelector("#t"+country.code).innerHTML);
+//			    		  formData.append('name', document.querySelector("#t"+country.code).innerHTML);
+//			    		  formData.append('capital',country.capital);
+//			    		  formData.append('regio',country.region);
+//			    		  formData.append('surface',country.surface);
+//			    		  formData.append('population',country.population);
+//						  console.log(formData);
+//						  console.log(formData.values);
+//						  var encData = new URLSearchParams(formData.entries());
+//						  
+//						  fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData })
+//						    .then(response => response.json())
+//						    .then(function(myJson) {
+//						    	console.log(myJson); 
+//
+//						    })
+//					    }
+//					    })
+					    		    
+			})
 			
 			document.querySelector("#makenButton").addEventListener("click", function () {
 	    		 document.getElementById('makenButton').style.display = 'none';
@@ -222,12 +274,15 @@ function loadCountries() {
 	    		    .then(response => response.json())
 	    		    .then(function(myJson) { console.log(myJson); });
 	    		 })
+	    		 
+
 			        
 	    	})
 				
-				
+			}		
 			})
 }
+
 
 		
 
