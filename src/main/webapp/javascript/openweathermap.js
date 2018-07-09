@@ -107,7 +107,7 @@ function showWeather(latitude, longitude, city) {
 }
 
 function loadCountries() {
-	fetch("http://localhost:8081/firstapp/restservices/countries")
+	fetch("/restservices/countries")
 		.then(function (response) {
 			return response.json();
 		})
@@ -219,7 +219,7 @@ function loadCountries() {
 					        	 }
 //					        	 window.alert(encData);
 					        	 
-					        	 fetch("http://localhost:8081/firstapp/restservices/countries/"+country.code, { method: 'PUT', body: encData 
+					        	 fetch("/restservices/countries/"+country.code, { method: 'PUT', body: encData 
 					        		 })
 								    .then(response => response.json())
 								    .catch(error => window.alert(error))
@@ -270,7 +270,7 @@ function loadCountries() {
 	    		  var formData = new FormData(document.querySelector("#POSTcountryForm"));
 	    		  var encData = new URLSearchParams(formData.entries());
 
-	    		  fetch("http://localhost:8081/firstapp/restservices/countries/", { method: 'POST', body: encData })
+	    		  fetch("/restservices/countries/", { method: 'POST', body: encData })
 	    		    .then(response => response.json())
 	    		    .then(function(myJson) { console.log(myJson); });
 	    		 })
