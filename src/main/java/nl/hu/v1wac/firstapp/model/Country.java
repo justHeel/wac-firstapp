@@ -27,6 +27,50 @@ public class Country {
 		this.longitude = lng;
 	}
 	
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setIso3(String iso3) {
+		this.iso3 = iso3;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCapital(String capital) {
+		this.capital = capital;
+	}
+
+	public void setContinent(String continent) {
+		this.continent = continent;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public void setSurface(double surface) {
+		this.surface = surface;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
+	public void setGovernment(String government) {
+		this.government = government;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 	public String getCode() {
 		return code;
 	}

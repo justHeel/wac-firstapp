@@ -97,16 +97,22 @@ public class WorldResource {
 	 @PUT
 	 @Path("{code}")
 	 @Produces("application/json")  
-	   public Response updateCountry(@PathParam("code") String code){
+	   public Response updateCountry(@PathParam("code") String code,@FormParam("name")String name,@FormParam("capital")String capi,@FormParam("region") String reg, @FormParam("surface")int surf,@FormParam("population")int pop){
 		WorldService service = ServiceProvider.getWorldService();
 		 Country country = service.getCountryByCode(code);
+		 if (country == null) {
+		       Map<String, String> messages = new HashMap<String, String>();
+		       messages.put("error", "Country does not exist!");
+		       return Response.status(409).entity(messages).build();
+		     }
+		 country.setName(name);
+		 country.setCapital(capi);
+		 country.setRegion(reg);
+		 country.setSurface(surf);
+		 country.setPopulation(pop);
 	     service.updateCountry(country);
 
-	     if (country == null) {
-	       Map<String, String> messages = new HashMap<String, String>();
-	       messages.put("error", "Country does not exist!");
-	       return Response.status(409).entity(messages).build();
-	     }
+	    
 
 	     return Response.ok(country).build();
 	   }
