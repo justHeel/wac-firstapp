@@ -218,7 +218,7 @@ function loadCountries() {
 					        })
 								 
 							    
-		
+			}
 			document.querySelector("#makenButton").addEventListener("click", function () {
 	    		 document.getElementById('makenButton').style.display = 'none';
 	    		 document.getElementById('POSTcountryForm').style.display='block';
@@ -247,7 +247,7 @@ function loadCountries() {
 
 			        
 	    	})
-			}		
+					
 				
 			})
 }
