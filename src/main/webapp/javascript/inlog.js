@@ -5,7 +5,7 @@ var encData = new URLSearchParams(formData.entries());
   fetch("restservices/authentication", { method: 'POST', body: encData })
     .then(function(response) {
       if (response.ok){
-    	  window.location = "/firstapp/openweathermap.html";
+    	  window.location = "/openweathermap.html";
     	  return response.json();
     	  
       }
