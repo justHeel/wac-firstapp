@@ -210,7 +210,7 @@ function loadCountries() {
 					    document.querySelector("#td"+country.code).addEventListener('keypress', function (e) {
 					        var key = e.which || e.keyCode;					        
 					        if (key === 13) {
-					        	form.submit();
+//					        	form.submit();
 					        	 var formData = new FormData(document.querySelector("#f"+country.code));
 					        	 var encData = new URLSearchParams(formData.entries());
 					        	 for(var entries of formData.entries()){
