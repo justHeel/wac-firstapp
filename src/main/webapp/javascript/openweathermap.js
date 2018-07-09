@@ -184,7 +184,9 @@ function loadCountries() {
 			    			  .then(function(response) {
 			    			    if (response.ok) {
 			    			      console.log("Country deleted!");
+			    			      window.alert("Country deleted!");
 			    			    } else console.log("Could not delete country!");
+			    			    window.alert("Could not delete country!");
 			    			  })
 			    			  .catch(error => console.log(error));
 				})
@@ -207,7 +209,9 @@ function loadCountries() {
 						    			  .then(function(response) {
 						    			    if (response.ok) {
 						    			      console.log("Country edited!");
+						    			      window.alert("Country edited!");
 						    			    } else console.log("Could not edit country!");
+						    			    window.alert("Country not edit country!");
 						    			  })
 						    			  .catch(error => console.log(error));
 	    
@@ -234,7 +238,9 @@ function loadCountries() {
 		    			  .then(function(response) {
 		    			    if (response.ok) {
 		    			      console.log("Country made!");
+		    			      window.alert("Country made!");
 		    			    } else console.log("Could not make country!");
+		    			    window.alert("Could not make country!");
 		    			  })
 		    			  .catch(error => console.log(error));
 	    		 })

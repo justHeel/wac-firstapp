@@ -5,11 +5,13 @@ var encData = new URLSearchParams(formData.entries());
   fetch("restservices/authentication", { method: 'POST', body: encData })
     .then(function(response) {
       if (response.ok){
+    	  window.alert("Je bent nu ingelogd!");
     	  window.location = "/openweathermap.html";
     	  return response.json();
     	  
       }
       else{ throw "Wrong username/password";
+      window.alert("Wrong username/password");
       }
      
     })
