@@ -233,7 +233,7 @@ function loadCountries() {
 		    		      headers : { 
 		    			    'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT") }
 		    			}
-		    			fetch("restservices/countries/"+country.code, fetchoptions)
+		    			fetch("restservices/countries/", fetchoptions)
 		    			  .then(function(response) {
 		    			    if (response.ok) {
 		    			      console.log("Country made!");
