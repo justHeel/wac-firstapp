@@ -197,17 +197,23 @@ function loadCountries() {
 					
 					        	 var formData = new FormData(document.querySelector("#f"+country.code));
 					        	 var encData = new URLSearchParams(formData.entries());
-					        	 fetch("restservices/countries/"+country.code, { method: 'PUT', body: encData 
-					        		 })
-								    .then(response => response.json())
-								     
-								    .then(function(myJson) {
-								    	document.getElementById("td" + country.code).contentEditable = false;	
+					        	 var fetchoptions = { 
+						    			  method: 'PUT',
+						    			  body:  encData,
+						    		      headers : { 
+						    			    'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT") }
+						    			}
+						    			fetch("restservices/countries/"+country.code, fetchoptions)
+						    			  .then(function(response) {
+						    			    if (response.ok) {
+						    			      console.log("Country edited!");
+						    			    } else console.log("Could not edit country!");
+						    			  })
+						    			  .catch(error => console.log(error));
 	    
 					        })
 								 
 							    
-			 });
 
 			
 			document.querySelector("#makenButton").addEventListener("click", function () {
@@ -218,9 +224,19 @@ function loadCountries() {
 	    		  var formData = new FormData(document.querySelector("#POSTcountryForm"));
 	    		  var encData = new URLSearchParams(formData.entries());
 
-	    		  fetch("restservices/countries/", { method: 'POST', body: encData })
-	    		    .then(response => response.json())
-	    		    .then(function(myJson) { console.log(myJson); });
+	    		  var fetchoptions = { 
+		    			  method: 'POST',
+		    			  body:  encData,
+		    		      headers : { 
+		    			    'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT") }
+		    			}
+		    			fetch("restservices/countries/"+country.code, fetchoptions)
+		    			  .then(function(response) {
+		    			    if (response.ok) {
+		    			      console.log("Country made!");
+		    			    } else console.log("Could not make country!");
+		    			  })
+		    			  .catch(error => console.log(error));
 	    		 })
 	    		 
 
